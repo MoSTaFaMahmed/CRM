@@ -1,0 +1,23 @@
+<mat-card>
+    <div class="m-0 p-0">
+       <div class="header my-1">
+           <span>{{contactItem.first_name}}</span>
+       </div>
+      <div>
+        <span class="state bg-gray me-1">{{contactItem.state}}</span>
+        <span class="state bg-primary">{{contactItem.probability_status}}</span>
+      </div>
+      <div class="row my-2">
+        <div class="col-md-1"><mat-icon class="text-gray">phone</mat-icon></div>
+         <div class="col-md-10"><span class="info">{{contactItem.last_name}} {{contactItem.phone}}</span></div>
+      </div>
+
+      <div class="row">
+       <div class="col-md-2"> <mat-icon class="text-gray">calendar_today</mat-icon> </div>
+       <div class="col-md-10 "><span>{{contactItem.date}}</span></div>
+      </div>
+    </div>
+   
+  </mat-card>
+
+  
