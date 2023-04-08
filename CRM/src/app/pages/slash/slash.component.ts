@@ -4,7 +4,6 @@ import { IContact } from 'src/app/core/models/IContact';
 import { ContactsServices } from 'src/app/core/services/contacts.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AddModalComponent } from 'src/app/components/add-modal/add-modal.component';
 import { CommonModelService } from 'src/app/core/services/CommonModelService';
 @Component({
   selector: 'app-slash',
@@ -12,15 +11,16 @@ import { CommonModelService } from 'src/app/core/services/CommonModelService';
   styleUrls: ['./slash.component.scss']
 })
 export class SlashComponent implements OnInit {
-
+  allData: IContact[] = [];
+  filteredData: IContact[] = [];
   potentialValueList: IContact[] = [];
   focusList: IContact[] = [];
   contactMadeList: IContact[] = [];
-  offerSent:IContact[]=[];
-  gettingReady:IContact[]=[];
+  offerSent: IContact[] = [];
+  gettingReady: IContact[] = [];
   loadedData: boolean = false;
-  constructor(private ContactsApi: ContactsServices, 
-    private snackBar: MatSnackBar, 
+  constructor(private ContactsApi: ContactsServices,
+    private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private commModel: CommonModelService) {
 
@@ -35,21 +35,8 @@ export class SlashComponent implements OnInit {
     this.loadedData = true;
     this.ContactsApi.getAllContacts().subscribe(res => {
       if (res && res.deals) {
-        res.deals.map((element: IContact) => {
-          if (element.status === "Potential Value") {
-            this.potentialValueList.push(element);
-          } else if (element.status === "Focus") {
-            this.focusList.push(element);
-          } else if (element.status === "Contact Made") {
-            this.contactMadeList.push(element);
-          }
-          else if (element.status === "Offer Sent") {
-            this.offerSent.push(element);
-          }
-          else if (element.status === "Getting Ready") {
-            this.gettingReady.push(element);
-          }
-        })
+        this.allData = res.deals;
+        this.search();
         this.loadedData = false;
       }
 
@@ -66,7 +53,7 @@ export class SlashComponent implements OnInit {
     });
   }
 
- 
+
 
   drop(event: CdkDragDrop<IContact[]>, mode: string) {
     if (event.previousContainer === event.container) {
@@ -87,7 +74,7 @@ export class SlashComponent implements OnInit {
 
   openDialog(): void {
     this.commModel.openDialog().subscribe(data => {
-      if(data){
+      if (data) {
         this.potentialValueList.push(data);
         this.SnackBar("Added Successfully");
       }
@@ -95,5 +82,47 @@ export class SlashComponent implements OnInit {
   }
 
 
+  search(e?: any) {
+    this.clear();
+    this.filteredData = [...this.allData]
+    if (e?.target.value) {
+      this.filteredData = this.filteredData.filter(el => {
+        return el.first_name.toLowerCase().includes(e.target.value.toLowerCase()) || el.email.toLowerCase().includes(e.target.value.toLowerCase()) ||el.last_name.toLowerCase().includes(e.target.value.toLowerCase())
+      })
+      this.divideData(this.filteredData)
+    } else {
+      this.divideData(this.allData)
+    }
+
+
+
+
+  }
+
+  clear() {
+    this.potentialValueList = [];
+    this.focusList = [];
+    this.contactMadeList = [];
+    this.offerSent = [];
+    this.gettingReady = [];
+  }
+
+  divideData(data: IContact[]) {
+    this.filteredData.map((element: IContact) => {
+      if (element.status === "Potential Value") {
+        this.potentialValueList.push(element);
+      } else if (element.status === "Focus") {
+        this.focusList.push(element);
+      } else if (element.status === "Contact Made") {
+        this.contactMadeList.push(element);
+      }
+      else if (element.status === "Offer Sent") {
+        this.offerSent.push(element);
+      }
+      else if (element.status === "Getting Ready") {
+        this.gettingReady.push(element);
+      }
+    })
+  }
 
 }

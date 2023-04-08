@@ -1,13 +1,18 @@
 <div class="mt-3 container-fluid" *ngIf="!loadedData">
-    <button mat-raised-button color="primary" class="ms-5" (click)="openDialog()">
-        <mat-icon>add</mat-icon>
-        Add Task
+    <div class="text-end">
+        <mat-form-field class="mx-3">
+            <input type="text" (change)="search($event)" matInput placeholder="Search">
+        </mat-form-field>
 
-    </button>
-    <div cdkDropListGroup class="row px-2">
+        <button mat-raised-button color="primary" class="me-auto" (click)="openDialog()">
+            <mat-icon>add</mat-icon>
+            Add Task
+        </button>
+    </div>
+    <div cdkDropListGroup class="row px-2 mt-2 gap-2">
 
-        <div class="col-md">
-            <h2>potentialValueList</h2>
+        <div class="col-md bg-light rounded">
+            <h2 class="text-center">potentialValueList</h2>
 
             <div cdkDropList [cdkDropListData]="potentialValueList" class="example-list"
                 (cdkDropListDropped)="drop($event,'potentialValue')">
@@ -16,8 +21,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md">
-            <h2>focusList</h2>
+        <div class="col-md bg-light rounded">
+            <h2 class="text-center">focusList</h2>
 
             <div cdkDropList [cdkDropListData]="focusList" class="example-list"
                 (cdkDropListDropped)="drop($event,'focus')">
@@ -25,8 +30,8 @@
                         class="col-12 p-1"></app-contact-card></div>
             </div>
         </div>
-        <div class="col-md">
-            <h2>To do</h2>
+        <div class="col-md bg-light rounded">
+            <h2 class="text-center">To do</h2>
 
             <div cdkDropList [cdkDropListData]="contactMadeList" class="example-list"
                 (cdkDropListDropped)="drop($event,'contactMade')">
@@ -35,18 +40,18 @@
             </div>
         </div>
 
-        <div class="col-md">
-            <h2>offer Sent</h2>
+        <div class="col-md bg-light rounded">
+            <h2 class="text-center">offer Sent</h2>
 
             <div cdkDropList [cdkDropListData]="offerSent" class="example-list"
                 (cdkDropListDropped)="drop($event,'Offer Sent')">
-                <div class="example-box" *ngFor="let item of offerSent" cdkDrag> <app-contact-card
-                        [contactItem]="item" class="col-12 p-1"></app-contact-card></div>
+                <div class="example-box" *ngFor="let item of offerSent" cdkDrag> <app-contact-card [contactItem]="item"
+                        class="col-12 p-1"></app-contact-card></div>
             </div>
         </div>
 
-        <div class="col-md">
-            <h2>Getting Ready</h2>
+        <div class="col-md bg-light rounded">
+            <h2 class="text-center">Getting Ready</h2>
 
             <div cdkDropList [cdkDropListData]="gettingReady" class="example-list"
                 (cdkDropListDropped)="drop($event,'Getting Ready')">

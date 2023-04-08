@@ -5,19 +5,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SlashModule } from './pages/slash/slash.module';
+import { HeaderComponent } from './components/header/header.component';
+import { NavComponent } from './components/nav/nav.component';
 
+
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
+    HeaderComponent,
+    NavComponent, 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SlashModule
+    SlashModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
