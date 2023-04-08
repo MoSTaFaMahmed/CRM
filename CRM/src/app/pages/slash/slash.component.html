@@ -1,0 +1,68 @@
+<div class="mt-3 container-fluid" *ngIf="!loadedData">
+    <button mat-raised-button color="primary" class="ms-5">
+        <mat-icon>add</mat-icon>
+        Add Task
+
+    </button>
+
+    <div cdkDropListGroup class="row px-2">
+
+        <div class="col-md">
+            <h2>potentialValueList</h2>
+
+            <div cdkDropList [cdkDropListData]="potentialValueList" class="example-list"
+                (cdkDropListDropped)="drop($event,'potentialValue')">
+                <div class="example-box" *ngFor="let item of potentialValueList" cdkDrag>
+                    <app-contact-card [contactItem]="item" class="col-12 p-1"></app-contact-card>
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <h2>focusList</h2>
+
+            <div cdkDropList [cdkDropListData]="focusList" class="example-list"
+                (cdkDropListDropped)="drop($event,'focus')">
+                <div class="example-box" *ngFor="let item of focusList" cdkDrag> <app-contact-card [contactItem]="item"
+                        class="col-12 p-1"></app-contact-card></div>
+            </div>
+        </div>
+        <div class="col-md">
+            <h2>To do</h2>
+
+            <div cdkDropList [cdkDropListData]="contactMadeList" class="example-list"
+                (cdkDropListDropped)="drop($event,'contactMade')">
+                <div class="example-box" *ngFor="let item of contactMadeList" cdkDrag> <app-contact-card
+                        [contactItem]="item" class="col-12 p-1"></app-contact-card></div>
+            </div>
+        </div>
+
+        <div class="col-md">
+            <h2>To do</h2>
+
+            <div cdkDropList [cdkDropListData]="contactMadeList" class="example-list"
+                (cdkDropListDropped)="drop($event,'contactMade')">
+                <div class="example-box" *ngFor="let item of contactMadeList" cdkDrag> <app-contact-card
+                        [contactItem]="item" class="col-12 p-1"></app-contact-card></div>
+            </div>
+        </div>
+
+        <div class="col-md">
+            <h2>To do</h2>
+
+            <div cdkDropList [cdkDropListData]="contactMadeList" class="example-list"
+                (cdkDropListDropped)="drop($event,'contactMade')">
+                <div class="example-box" *ngFor="let item of contactMadeList" cdkDrag> <app-contact-card
+                        [contactItem]="item" class="col-12 p-1"></app-contact-card></div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<div class="spinner" *ngIf="loadedData">
+    <mat-spinner [diameter]="80"></mat-spinner>
+</div>
