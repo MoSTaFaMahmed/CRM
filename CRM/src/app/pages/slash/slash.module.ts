@@ -5,9 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SlashComponent } from './slash.component';
-import { AddModalComponent } from 'src/app/components/add-modal/add-modal.component';
 import { ContactCardComponent } from 'src/app/components/contact-card/contact-card.component';
+import { AddModalComponent } from 'src/app/components/add-modal/add-modal.component';
+
 import { ContactsServices } from 'src/app/core/services/contacts.service';
+import { CommonModelService } from './../../core/services/CommonModelService';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatCardModule} from '@angular/material/card';
@@ -45,7 +47,7 @@ const routes: Routes = [
     MatSnackBarModule,
     MatDialogModule
   ],
-  providers: [ContactsServices],
+  providers: [ContactsServices,CommonModelService],
   bootstrap: [],
 })
 export class SlashModule { }

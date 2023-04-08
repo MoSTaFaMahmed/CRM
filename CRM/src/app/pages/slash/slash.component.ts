@@ -2,7 +2,10 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit } from '@angular/core';
 import { IContact } from 'src/app/core/models/IContact';
 import { ContactsServices } from 'src/app/core/services/contacts.service';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddModalComponent } from 'src/app/components/add-modal/add-modal.component';
+import { CommonModelService } from 'src/app/core/services/CommonModelService';
 @Component({
   selector: 'app-slash',
   templateUrl: './slash.component.html',
@@ -13,10 +16,14 @@ export class SlashComponent implements OnInit {
   potentialValueList: IContact[] = [];
   focusList: IContact[] = [];
   contactMadeList: IContact[] = [];
+  offerSent:IContact[]=[];
+  gettingReady:IContact[]=[];
   loadedData: boolean = false;
-  constructor(private ContactsApi: ContactsServices,
-    private snackBar: MatSnackBar) {
-  
+  constructor(private ContactsApi: ContactsServices, 
+    private snackBar: MatSnackBar, 
+    private dialog: MatDialog,
+    private commModel: CommonModelService) {
+
   }
 
   ngOnInit(): void {
@@ -36,6 +43,12 @@ export class SlashComponent implements OnInit {
           } else if (element.status === "Contact Made") {
             this.contactMadeList.push(element);
           }
+          else if (element.status === "Offer Sent") {
+            this.offerSent.push(element);
+          }
+          else if (element.status === "Getting Ready") {
+            this.gettingReady.push(element);
+          }
         })
         this.loadedData = false;
       }
@@ -53,8 +66,7 @@ export class SlashComponent implements OnInit {
     });
   }
 
-  
-
+ 
 
   drop(event: CdkDragDrop<IContact[]>, mode: string) {
     if (event.previousContainer === event.container) {
@@ -73,10 +85,15 @@ export class SlashComponent implements OnInit {
 
   }
 
-
-  AddNewContact() {
-  
-
+  openDialog(): void {
+    this.commModel.openDialog().subscribe(data => {
+      if(data){
+        this.potentialValueList.push(data);
+        this.SnackBar("Added Successfully");
+      }
+    });
   }
+
+
 
 }
